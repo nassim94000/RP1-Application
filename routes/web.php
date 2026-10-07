@@ -83,13 +83,13 @@ route::post('/groupe/creer' , [GroupeController::class , 'creerGroupe']); //form
 // ====== Gerer les invitations aux groupes ======
 
 //Lister les invitations
-route::get('/groupe/listerInvitations' , [GroupeController::class , 'listerInvitations'])
+route::get('/groupe/listerInvitations' , [GroupeController::class , 'listerInvitations']);
 
 //Accepter l invitation a un groupe : 
-route::get('/groupe/accepterInvitation' , [GroupeController::class , 'accepterInvitation'])
+route::get('/groupe/accepterInvitation' , [GroupeController::class , 'accepterInvitation']);
 
 //Refuser l invitation a un groupe : 
-route::get('/groupe/refuserInvitation' , [GroupeController::class , 'refuserInvitation'])
+route::get('/groupe/refuserInvitation' , [GroupeController::class , 'refuserInvitation']);
 
 
 // ====== Gerer les utilisateurs ======
