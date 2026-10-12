@@ -3,12 +3,34 @@
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\TacheController;
+use App\Http\Controllers\AuthentificationController;
 use Illuminate\Support\Facades\Route;
 
+
+// ==================================================================
+// ======================= General
+// ==================================================================
+
+//Racine
 Route::get('/', function () {
-    return view('welcome');
+    
+    return redirect('/getVueConnexion');
 });
 
+//Saisir connexion
+Route::get('/getVueConnexion' , [AuthentificationController::class , 'getVueConnexion']);
+
+//Se connecter
+Route::get('/seConnecter' [AuthentificationController::class , 'seConnecter']); 
+
+//Se deconnecter
+Route::get('/seDeconnecter' [AuthentificationController::class , 'seDeconnecter']); 
+
+//Saisir le nouveau MDP
+Route::get('/getVueMdp' [AuthentificationController::class , 'getVueMdp'])
+
+//En cas de premiere connexion
+Route::get('/saisirNouveauMDP' [AuthentificationController::class , 'saisirNouveauMDP'])
 
 
 
@@ -19,7 +41,7 @@ Route::get('/', function () {
 // ====== operations sur les groupes ======
 
 //Rejoindre un groupe
-route::get('/groupe/rejoindre/{idGroupe}' , [GroupeController::class , 'rejoindreGroupe']);
+route::get('/groupe/rejoindre/{idGroupe}' , [GroupeController::class , 'rejoindreGroupe']); 
 
 //Quitter un groupe
 route::get('/groupe/quitter/{idGroupe}' , [GroupeController::class , 'quitterGroupe']);
@@ -110,10 +132,10 @@ route::get('/utilisateur/listerUtilisateurs' , [UtilisateurController::class , '
 route::get('/utilisateur/unProfil/{idUtilisateur}' , [UtilisateurController::class , 'consulterUnProfil']);
 
 //Consulter le planning d'un utlisateur
-route::get('/utilisateur/unPlanning/{idUtilisateur}' , [UtilisateurController::class , 'consulterPlanning']);
+route::get('/utilisateur/unPlanning/{idUtilisateur}' , [UtilisateurController::class , 'consulterUnPlanning']);
 
 //Modifier la fonction d'un utilisateur
-route::post('/utilisateur/modifierFonction' , [UtilisateurController::class , 'modifierFonction']); //formulaire
+route::post('/utilisateur/modifierFonction/{idUtilisateur}' , [UtilisateurController::class , 'modifierFonction']); //formulaire
 
 
 // ==================================================================
@@ -151,8 +173,4 @@ route::post('/tache/groupe/ajouter' , [TacheController::class , 'ajouterTacheGro
 
 
 //Modifier une tache de groupe
-route::post('/tache/groupe/modifier' , [TacheController::class , 'modifierTacheGroupe']); //formulaire
-
-
-
-
+route::post('/tache/groupe/modifier/{idTache}' , [TacheController::class , 'modifierTacheGroupe']); //formulaire

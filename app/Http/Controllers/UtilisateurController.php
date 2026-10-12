@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 namespace App\Http\Controllers;
 
@@ -8,16 +8,56 @@ class UtilisateurController extends Controller
 {
     //
 
-    public function voirUtlisateurs (){
+    Public function consulterPlanning (){
 
-        $utilisateurs = array('Rayan', 'Evan', 'CHELABI');
+        //SQL voulu : recuperer toutes les taches d'un utilisateur grace a son id
 
-        return $utilisateurs;
+        //pas d'argument car on reconnaitra un utilisateur a sa session.
+        $tache = ();
+
+        return view('pass') -> with( 'listeTache' , $tache);
+
     }
 
-    Public function voirUnUtlisateurs ($test){
+    Public function consulterProfil () {
 
-        return view('test') -> with( 'test' , $test);
+        //pas d'argument car on reconnaitra un utilisateur a sa session.
+        $listeInfoProfil = ();
+
+        return view('pass') -> with( 'listeInfoProfil' , $listeInfoProfil);
+
     }
+
+    Public function modifierProfil (request $req) {
+
+        // attend un formulaire de modification
+
+        //SQL a partir d'une liste $req faire un update du tuple correspondant a l'id dans la table utilisateur 
+
+    }
+
+    Public function saisirUtilisateur (){
+
+        if (session() -> fonction() == 'ressources humaines'){
+            return view('pass');
+
+        }
+        else {
+            return redirect(/)
+        }
+        
+    }
+
+    ajouterUtilisateur
+
+    supprimerUtilisateur
+
+    listerUtilisateurs
+
+    consulterUnProfil
+
+    consulterUnPlanning
+
+    modifierFonction
 
 }
