@@ -17,7 +17,7 @@ class AuthentificationController extends Controller
             return redirect('/utilisateur/planning');
         }
         else {
-            return view('nomVueConnexion') //Nassime -> changer le nom de la vue
+            return view('nomVueConnexion') //NASSIME -> changer le nom de la vue
         }
     }
 
@@ -38,7 +38,7 @@ class AuthentificationController extends Controller
         try { 
             Auth::validate($identifiants) || throw new \Illuminate\Auth\AuthenticationException ('identifiant ou mot de passe incorect'); //creation d'une nouvelle exception
 
-            // Melina -> faire la requete de recuperation des donnees  puis stocker les valeurs dans le dictionnaire suivant
+            // MELINA -> faire la requete de recuperation des donnees  puis stocker les valeurs dans le dictionnaire suivant
 
             $dict = [
             'id_utilisateur' =>   ,
@@ -52,11 +52,11 @@ class AuthentificationController extends Controller
             $req -> session() -> put($dict);
 
             //Verification premier mot de passe
-            //Melina -> valeur de l'attribut premiereConnexion de l'utilisateur et l'affecter a la variable $pC
+            //MELINA -> valeur de l'attribut premiereConnexion de l'utilisateur et l'affecter a la variable $pC
             $pC = FALSE;
 
             if ($pC){
-                return view('nomDeLaVue'); //Nassime -> nom de la vue de changement de mdp de la premiere connexion
+                return view('nomDeLaVue'); //NASSIME -> nom de la vue de changement de mdp de la premiere connexion
             }
             else {
                 return redirect('/utilisateur/planning') ;
@@ -87,23 +87,23 @@ class AuthentificationController extends Controller
             return redirect('/utilisateur/planning');
         }
 
-        return view('nomDeLaVue') // Nassime -> Changer par la vue de modification de mot de passe
+        return view('nomDeLaVue') // NASSIME -> Changer par la vue de modification de mot de passe
 
     }
 
     //nouveau MDP
-    public function saisirNouveauMDP(request $req){
+    public function nouveauMDP(request $req){
 
         $newMdpTester = $req -> all();
 
         if ($newMdpTester['nouveau_mot_de_passe'] == '' || $newMdpTester['verification_nouveau_mot_de_passe'] == ''){
-            return redirect('/saisirNouveauMDP');
+            return redirect('/nouveauMDP');
         }
         if ($newMdpTester['nouveau_mot_de_passe'] === $newMdpTester['verification_nouveau_mot_de_passe']){
 
             try {
 
-                //Melina -> update l'attribut mdp de l'utilisateur req->session()->get['id_utilisateur'] par la variable $newMdpTester['nouveau_mot_de_passe'] 
+                //MELINA -> update l'attribut mdp de l'utilisateur req->session()->get['id_utilisateur'] par la variable $newMdpTester['nouveau_mot_de_passe'] 
 
             }
             catch (\Exception $e){

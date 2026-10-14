@@ -8,14 +8,20 @@ class UtilisateurController extends Controller
 {
     //
 
-    Public function consulterPlanning (){
+    Public function consulterPlanning (request $req){
+        """
+        Melina -> Recuper toutes les taches de l'utilisateur $req->session()->get('id_utilisateur') puis les affecter dans une liste de tableaux associatifs. 
+        ex :
 
-        //SQL voulu : recuperer toutes les taches d'un utilisateur grace a son id
+        $taches = (
+        ['libelle' => nomTache, 'description' => description, ...],
+        ['libelle' => nomTache, 'description' => description, ...],
+        ...
+        );
 
-        //pas d'argument car on reconnaitra un utilisateur a sa session.
-        $tache = ();
+        """
 
-        return view('pass') -> with( 'listeTache' , $tache);
+        return view('pass') -> with( 'listeTache' , $taches);
 
     }
 
