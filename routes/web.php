@@ -14,23 +14,23 @@ use Illuminate\Support\Facades\Route;
 //Racine
 Route::get('/', function () {
     
-    return redirect('/getVueConnexion');
+    return view('accueil');
 });
 
 //Saisir connexion
 Route::get('/getVueConnexion' , [AuthentificationController::class , 'getVueConnexion']);
 
 //Se connecter
-Route::get('/seConnecter' [AuthentificationController::class , 'seConnecter']); // formulaire
+Route::get('/seConnecter' , [AuthentificationController::class , 'seConnecter']); // formulaire
 
 //Se deconnecter
-Route::get('/seDeconnecter' [AuthentificationController::class , 'seDeconnecter']); 
+Route::get('/seDeconnecter' , [AuthentificationController::class , 'seDeconnecter']); 
 
 //Saisir le nouveau MDP
-Route::get('/getVueMdp' [AuthentificationController::class , 'getVueMdp'])
+Route::get('/getVueMdp' , [AuthentificationController::class , 'getVueMdp']);
 
 //Changement MDP
-Route::get('/nouveauMDP' [AuthentificationController::class , 'nouveauMDP']) // formulaire
+Route::get('/nouveauMDP' , [AuthentificationController::class , 'nouveauMDP']); // formulaire
 
 
 
