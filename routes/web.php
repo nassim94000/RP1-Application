@@ -30,7 +30,7 @@ Route::get('/seDeconnecter' , [AuthentificationController::class , 'seDeconnecte
 Route::get('/getVueMdp' , [AuthentificationController::class , 'getVueMdp']);
 
 //Changement MDP
-Route::get('/nouveauMDP' , [AuthentificationController::class , 'nouveauMDP']); // formulaire
+Route::get('/nouveauMDP' ,  [AuthentificationController::class , 'nouveauMDP']); // formulaire
 
 
 
