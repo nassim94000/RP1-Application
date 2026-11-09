@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('taches', function (Blueprint $table) {
-            $table->id('id_tache');
+            $table->id('tache_id');
             $table->string('libelle', 100);
-            $table->text('description')->nullable();
+            $table->text('description');
             $table->dateTime('date_debut');
             $table->dateTime('date_fin');
             $table->enum('importance', ['faible', 'moyenne', 'forte']);
