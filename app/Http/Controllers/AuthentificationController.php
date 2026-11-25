@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request; //pour gerer les formulaires
 use Illuminate\Support\Facades\Auth;
+use App\Models\ModelSynchro;
 
 class AuthentificationController extends Controller
 {
@@ -17,53 +18,61 @@ class AuthentificationController extends Controller
             return redirect('/utilisateur/planning');
         }
         else {
-            return view('nomVueConnexion') //NASSIME -> changer le nom de la vue
+            return view('connexion');
         }
     }
-
+    public function testConnexion (){
+        $allUser = ModelSynchro::getAllUser();
+        return $allUser;
+    }
 
     //Se connecter
     public function seConnecter(request $req){ //recoit un formulaire -> reourne la vue de l'utilisateur
         // A COMPLETER
-        $identifiants = $req ->only(['email', 'password']);
+        $identifiants = $req->validate([
+            'email' => 'required|email',
+            'mdp'   => 'required',
+        ]);
 
         
         // i pour "insensitive" pour inclure a la fois les minuscules et les majuscules
         if (!preg_match ('/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i', $identifiants['email']) && $identifiants['password'] == ''){
             
             return redirect('/getVueConnexion');
-        
         }
 
         try { 
-            Auth::validate($identifiants) || throw new \Illuminate\Auth\AuthenticationException ('identifiant ou mot de passe incorect'); //creation d'une nouvelle exception
+            
 
-            // MELINA -> faire la requete de recuperation des donnees  puis stocker les valeurs dans le dictionnaire suivant
+            $utilisateur = Utilisateur::where('email', $identifiants['email'])->first();
+
+            if (!$utilisateur || $utilisateur->mdp !== $identifiants['mdp']) {
+                return redirect('/')->withErrors(['email' => 'Identifiant ou mot de passe incorrect']);
+            }
+
+            $req->session()->regenerate();
 
             $dict = [
-            'id_utilisateur' =>   ,
-            'nom' =>   ,
-            'prenom' =>  ,
-            'email' =>   ,
-            'fonction' => ,
+                'utilisateur_id'        => $utilisateur->utilisateur_id,
+                'nom'                   => $utilisateur->nom,
+                'prenom'                => $utilisateur->prenom,
+                'email'                 => $utilisateur->email,
+                'fonction'              => $utilisateur->fonction,
+                'premiere_connexion'    => $utilisateur->premiere_connexion,
             ];
+
 
             //creation de la session
             $req -> session() -> put($dict);
 
             //Verification premier mot de passe
-            //MELINA -> valeur de l'attribut premiereConnexion de l'utilisateur et l'affecter a la variable $pC
-            $pC = FALSE;
 
-            if ($pC){
-                return view('nomDeLaVue'); //NASSIME -> nom de la vue de changement de mdp de la premiere connexion
+            if ($utilisateur->premiere_connexion){
+                return redirect('/utilisateur/planning'); 
             }
-            else {
-                return redirect('/utilisateur/planning') ;
-            }
-        }
-        catch (\Illuminate\Auth\AuthenticationException $e){ 
-            return redirect('/');
+            
+            return redirect('/utilisateur/planning');
+
         }
 
         catch (\Exception $e){ //CHANGER A LA FIN
@@ -87,7 +96,7 @@ class AuthentificationController extends Controller
             return redirect('/utilisateur/planning');
         }
 
-        return view('nomDeLaVue') // NASSIME -> Changer par la vue de modification de mot de passe
+        return view('nomDeLaVue'); // NASSIME -> Changer par la vue de modification de mot de passe
 
     }
 
